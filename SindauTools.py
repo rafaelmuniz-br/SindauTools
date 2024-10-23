@@ -4,24 +4,23 @@ import json
 import re
 from datetime import datetime
 import pytz
+import webbrowser
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 appWidth, appHeight = 1366, 768
 
 def menu_principal():
-    menu_window = ctk.CTk()
+    menu_window = ctk.CTk("gray85")
     menu_window.title("SindauTools")
     menu_window.geometry("240x425")
-    
-    label = ctk.CTkLabel(menu_window, text="SindauTools", font=ctk.CTkFont(size=20, weight="bold"),corner_radius=15,fg_color="gray30")
-    label.pack(pady=10)
-    
+    menu_window.resizable(False, False)
+
     def voltar():
         for widget in menu_window.winfo_children():
             widget.destroy()
-        label = ctk.CTkLabel(menu_window, text="SindauTools", font=ctk.CTkFont(size=20, weight="bold"),corner_radius=15,fg_color="gray30")
-        label.pack(pady=10)
+        label = ctk.CTkLabel(menu_window, text="SindauTools", font=ctk.CTkFont(size=20, weight="bold"),corner_radius=15,fg_color="darkred")
+        label.pack(pady=20)
         btn_1 = ctk.CTkButton(menu_window, text="Ferramentas", command=menu_ferramentas, width=200)
         btn_1.pack(pady=10)
         btn_5 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
@@ -30,47 +29,46 @@ def menu_principal():
     def menu_ferramentas():
         for widget in menu_window.winfo_children():
             widget.destroy()
-        label = ctk.CTkLabel(menu_window, text="Ferramentas", font=ctk.CTkFont(size=20, weight="bold"),corner_radius=15,fg_color="gray30")
-        label.pack(pady=10)
+        label = ctk.CTkLabel(menu_window, text="Ferramentas", font=ctk.CTkFont(size=20, weight="bold"),corner_radius=15,fg_color="darkred")
+        label.pack(pady=20)
         btn_1 = ctk.CTkButton(menu_window, text="Formatador Notificação", command=abrir_formatador_notificacao, width=200)
         btn_1.pack(pady=10)
         btn_2 = ctk.CTkButton(menu_window, text="Formatador CPF", command=abrir_formatar_cpf, width=200)
         btn_2.pack(pady=10)
         btn_3 = ctk.CTkButton(menu_window, text="Formatador (Des)Vincular", command=abrir_formatador_vinculador,  width=200)
         btn_3.pack(pady=10)
-        #btn_5 = ctk.CTkButton(menu_window, text="Formatador Vincular/Desvincular Aula", command=abrir_formatar_cpf, width=200)
-        #btn_5.pack(pady=10)
         #btn_4 = ctk.CTkButton(menu_window, text="Formatador Matricula", command=abrir_formatar_cpf, width=200)
         #btn_4.pack(pady=10)
         btn_4 = ctk.CTkButton(menu_window, text="Voltar", command=voltar, width=20, fg_color="teal", hover_color="darkred")
-        btn_4.pack(pady=80) 
-    
-    btn_1 = ctk.CTkButton(menu_window, text="Ferramentas", command=menu_ferramentas, width=200)
-    btn_1.pack(pady=10)
-        
-    #btn_2 = ctk.CTkButton(menu_window, text="Atualizações", command=atualizar, width=200)
-    #btn_2.pack(pady=10)
-
-    #btn_3 = ctk.CTkButton(menu_window, text="Formatador de Vinculação", width=200)
-    #btn_3.pack(pady=10)
-
-    #btn_4 = ctk.CTkButton(menu_window, text="Corretor ortográfico", width=200)
-    #btn_4.pack(pady=10)
+        btn_4.pack(pady=80)
 
     def sobre():
         for widget in menu_window.winfo_children():
             widget.destroy()
-        label = ctk.CTkLabel(menu_window, text="SindauTools", font=ctk.CTkFont(size=24, weight="bold"))
-        label.pack(pady=20)
-        
-        label = ctk.CTkLabel(menu_window, text= "A SindauTools foi criada\n para se adaptar continuamente\nàs demandas de suporte do\n Sindauto,visando proporcionar\n mais facilidade e eficiência\nao trabalho da nossa equipe.", font=ctk.CTkFont(size=14, weight="bold"))
-        label.pack(pady=20)
-
-        label = ctk.CTkLabel(menu_window, text="Desenvolvido por:\nJefferson e Rafael", font=ctk.CTkFont(size=14, weight="bold"))
-        label.pack(pady=20)
-        btn_3 = ctk.CTkButton(menu_window, text="Voltar", command=voltar, width=20, fg_color="teal", hover_color="darkred")
-        btn_3.pack(pady=20)
+        label_1 = ctk.CTkLabel(menu_window, text="SindauTools", font=ctk.CTkFont(size=24, weight="bold"), text_color="darkred")
+        label_1.pack(pady=20)
+        label_2 = ctk.CTkLabel(menu_window, text= "A SindauTools foi criada\n para se adaptar continuamente\nàs demandas de suporte do\n Sindauto,visando proporcionar\n mais facilidade e eficiência\nao trabalho da nossa equipe.", font=ctk.CTkFont(size=14, weight="bold"), text_color="black")
+        label_2.pack(pady=20)
+        label_3 = ctk.CTkLabel(menu_window, text="Desenvolvido por:\nJefferson e Rafael", font=ctk.CTkFont(size=14, weight="bold"), text_color="teal")
+        label_3.pack(pady=(20,5))
+        btn_1 = ctk.CTkButton(menu_window, text="Conhecer mais...", command=mais, width=20, fg_color="gray85", hover_color="gray60",text_color="teal")
+        btn_1.pack(pady=0)
+        btn_2 = ctk.CTkButton(menu_window, text="Voltar", command=voltar, width=20, fg_color="teal", hover_color="darkred")
+        btn_2.pack(pady=20)
     
+    def mais():
+        webbrowser.open("https://github.com/rafaelmuniz-br/SindauTools/tree/dev")
+
+    label = ctk.CTkLabel(menu_window, text="SindauTools", font=ctk.CTkFont(size=20, weight="bold"),corner_radius=15,fg_color="darkred")
+    label.pack(pady=20)
+    btn_1 = ctk.CTkButton(menu_window, text="Ferramentas", command=menu_ferramentas, width=200)
+    btn_1.pack(pady=10)
+    #btn_2 = ctk.CTkButton(menu_window, text="Atualizações", command=atualizar, width=200)
+    #btn_2.pack(pady=10)
+    #btn_3 = ctk.CTkButton(menu_window, text="Formatador de Vinculação", width=200)
+    #btn_3.pack(pady=10)
+    #btn_4 = ctk.CTkButton(menu_window, text="Corretor ortográfico", width=200)
+    #btn_4.pack(pady=10)
     btn_5 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
     btn_5.pack(pady=10)
 

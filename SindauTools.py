@@ -13,10 +13,7 @@ ctk.set_default_color_theme("blue")
 appWidth, appHeight = 1366, 768
 #-------------------------------------------------------------------
 
-#Adicionado ao Menu botão de versão com sistema simples de atualização.
-#Adicionado site de atualizações
-#As atualizações funcionam: Quando o site estiver disponivel há atualizações, quando não, aparecerá uma mensagem dizendo que nao tem
-#Essa funcionalidade utiliza erro da pagina para verificar exemplo erro 404
+#Adicionado mais um atributo no sistema de notificações "New" para limitar.
 
 #---------------------------------------------------------------------------------------------------------------------------------------------
 def menu_principal():
@@ -144,15 +141,11 @@ def abrir_formatador_notificacao():
     formatador_window = ctk.CTk()  
     formatador_window.title("SindauTools")
     formatador_window.geometry(f"{appWidth}x{appHeight}")
-
-
+    
     label = ctk.CTkLabel(formatador_window, text="Formatador Notificação", font=ctk.CTkFont(size=24, weight="bold"))
     label.grid(row=0, column=0, columnspan=2, pady=(20, 10))
-
-
     inserir = ctk.CTkTextbox(formatador_window, width=600, height=580, border_width=1, border_color="gray40", fg_color="gray15")
     inserir.grid(row=2, column=0, padx=30, pady=(0, 10), sticky="n")
-
     btn_frame = ctk.CTkFrame(formatador_window)
     btn_frame.grid(row=1, column=0, padx=20, pady=(0, 10))
 
@@ -161,20 +154,16 @@ def abrir_formatador_notificacao():
             texto = inserir.get("1.0", tk.END).strip()
             linhas = texto.split("\n")
             resultados.clear()
-
             for widget in resultados_frame.winfo_children():
                 widget.destroy()
-
             for idx, linha in enumerate(linhas):
                 elementos = linha.split("\t")
-                
-                if len(elementos) == 13 and elementos[12] == "paid":
-                    
+                if len(elementos) == 13 and elementos[12] == "paid" or elementos[12] == "New": 
                     try:
                         valor = float(elementos[8])
                     except ValueError:
                         continue
-                
+                    
                     json_obj = {
                         "_id": elementos[0],
                         "operacao": elementos[1],
@@ -192,7 +181,7 @@ def abrir_formatador_notificacao():
                             "status_atual": elementos[12],
                         }
                     }
-                                      
+                             
                     resultado_json = json.dumps(json_obj, indent=4, ensure_ascii=False)
                     resultados.append(resultado_json)
                     resultado_box = ctk.CTkTextbox(resultados_frame, width=450, height=150, border_width=1, border_color="gray40", fg_color="gray20")
@@ -203,7 +192,6 @@ def abrir_formatador_notificacao():
                                                 command=lambda r=resultado_json: copiar_texto(r),
                                                 font=ctk.CTkFont(size=10), fg_color="gray25", hover_color="teal")
                     btn_copiar.grid(row=idx, column=1, padx=5, pady=5, sticky="nw")
-
         except Exception as e:
             status_label.configure(text=f"Erro ao formatar para JSON: {e}", text_color="red")
 
@@ -221,18 +209,13 @@ def abrir_formatador_notificacao():
             widget.destroy()
         resultados.clear()
         status_label.configure(text="Resultados limpos.", text_color="yellow")
-
     btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", width=50, height=30, command=formatar, font=ctk.CTkFont(size=10), fg_color="gray25", hover_color="darkblue")
     btn_formatar.grid(row=0, column=1, padx=5)
-
     btn_limpar = ctk.CTkButton(btn_frame, text="Limpar", width=50, height=30, command=limpar_resultados, font=ctk.CTkFont(size=10), fg_color="red", hover_color="darkred")
     btn_limpar.grid(row=0, column=2, padx=5)
-
     resultados_frame = ctk.CTkScrollableFrame(formatador_window, width=600, border_width=1, border_color="gray40", fg_color="gray15")
     resultados_frame.grid(row=1, column=1, rowspan=2, padx=20, pady=(20, 20), sticky="nsew")
-
     resultados = []
-
     status_label = ctk.CTkLabel(formatador_window, text="", font=ctk.CTkFont(size=14), text_color="yellow")
     status_label.grid(row=3, column=0, columnspan=2, pady=(10, 20), sticky="ew")
 

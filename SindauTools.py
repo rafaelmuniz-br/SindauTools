@@ -5,18 +5,18 @@ import re
 from datetime import datetime
 import pytz
 import webbrowser
+import requests
+from tkinter import ttk
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 appWidth, appHeight = 1366, 768
 #-------------------------------------------------------------------
 
-#Mais melhoria no menu principal:
-#Cor levemente escurecida.
-#Adicionado cartegoria de ferramentas api e ferramentas geral.
-#Botão do Formatador de CPFs migrado para ferramentas geral.
-#Removido botões comentados
-#Melhorado informações dos desenvolvedores
+#Adicionado ao Menu botão de versão com sistema simples de atualização.
+#Adicionado site de atualizações
+#As atualizações funcionam: Quando o site estiver disponivel há atualizações, quando não, aparecerá uma mensagem dizendo que nao tem
+#Essa funcionalidade utiliza erro da pagina para verificar exemplo erro 404
 
 #---------------------------------------------------------------------------------------------------------------------------------------------
 def menu_principal():
@@ -36,6 +36,8 @@ def menu_principal():
         btn_2.pack(pady=10)
         btn_5 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
         btn_5.pack(pady=10)
+        btn_6 = ctk.CTkButton(menu_window, text="                                       Beta 1.0.3", width=280,command=atualizacao, text_color="teal",fg_color="gray75",hover_color="gray75", font=ctk.CTkFont(size=12, weight="bold"))
+        btn_6.pack(pady=(180,0))
 
     def ferramentas_api():
         for widget in menu_window.winfo_children():
@@ -46,6 +48,8 @@ def menu_principal():
         btn_1.pack(pady=10)
         btn_3 = ctk.CTkButton(menu_window, text="Formatador (Des)Vincular", command=abrir_formatador_vinculador,  width=200)
         btn_3.pack(pady=10)
+        btn_2 = ctk.CTkButton(menu_window, text="Formatador CPFs", command=abrir_formatar_cpf, width=200)
+        btn_2.pack(pady=10)
         btn_4 = ctk.CTkButton(menu_window, text="Voltar", command=voltar, width=20, fg_color="teal", hover_color="darkred")
         btn_4.pack(pady=80)
 
@@ -72,7 +76,47 @@ def menu_principal():
         btn_1.pack(pady=0)
         btn_2 = ctk.CTkButton(menu_window, text="Voltar", command=voltar, width=20, fg_color="teal", hover_color="darkred")
         btn_2.pack(pady=20)
-    
+        
+    def verificar_atualizacoes(url = "https://d-jefferson.github.io/Update/"):
+        try:
+            resposta = requests.head(url)
+            if resposta.status_code < 400:
+                print(f"O link {url} é válido.")
+                webbrowser.open("https://d-jefferson.github.io/Update/")
+                status_label = ctk.CTkLabel(menu_window, text="[ Há atualizações disponiveis ]", font=ctk.CTkFont(size=14), text_color="yellow")
+                status_label.pack(pady=10)
+            else:
+                print(f"O link {url} é inválido. Código de status: {resposta.status_code}")
+                status_label = ctk.CTkLabel(menu_window, text="[ Não há atualizações disponiveis ]", font=ctk.CTkFont(size=14), text_color="teal")
+                status_label.pack(pady=10)
+        except requests.exceptions.RequestException:
+            print(f"O link {url} é inválido.")
+            
+    def veri():
+        style = ttk.Style()
+        style.theme_use("default")
+        progressbar = ttk.Progressbar(menu_window, orient="horizontal", length=200, mode="indeterminate")
+        progressbar.pack(pady=10)
+        progressbar.start()
+        def parar():
+            progressbar.pack_forget()
+        menu_window.after(5500, verificar_atualizacoes)
+        menu_window.after(5500, parar)
+        
+    def atualizacao():
+        for widget in menu_window.winfo_children():
+            widget.destroy()
+        btn_2 = ctk.CTkButton(menu_window, text="Voltar", command=voltar, width=20,height=3, fg_color="teal", hover_color="darkred",font=ctk.CTkFont(size=9))
+        btn_2.pack(pady=0)
+        label_1 = ctk.CTkLabel(menu_window, text="Novidades - 1.0.3", font=ctk.CTkFont(size=24, weight="bold"), text_color="teal")
+        label_1.pack(pady=10)
+        label_2 = ctk.CTkLabel(menu_window, text= "Melhorias e Ajustes:\n1. Novo visual do menu principal.\n2. Adicionado Des/Vincular Aulas\n3. Melhorado sistema notificação\n4. Aprimorado formatador de CPF", font=ctk.CTkFont(size=14), text_color="gray15")
+        label_2.pack(pady=20)
+        btn_1 = ctk.CTkButton(menu_window, text="Verificar atualizações", command=veri, width=20, fg_color="gray75", hover_color="gray60",text_color="teal", font=ctk.CTkFont(size=15))
+        btn_1.pack(pady=(30,0))
+        status_label = ctk.CTkLabel(menu_window, text="", font=ctk.CTkFont(size=14), text_color="yellow")
+        status_label.pack(pady=10)
+
     def mais():
         def opc(value):
             if value == "JEFFERSON":
@@ -83,7 +127,6 @@ def menu_principal():
         seg_button_1.pack(pady=10)
         seg_button_1.configure(values=["JEFFERSON","RAFAEL M."], command=opc)
         
-
     label = ctk.CTkLabel(menu_window, text="SindauTools", font=ctk.CTkFont(size=20, weight="bold"),corner_radius=15,fg_color="darkred")
     label.pack(pady=20)
     btn_1 = ctk.CTkButton(menu_window, text="Ferramentas - API", command=ferramentas_api, width=200)
@@ -92,6 +135,8 @@ def menu_principal():
     btn_2.pack(pady=10)
     btn_5 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
     btn_5.pack(pady=10)
+    btn_6 = ctk.CTkButton(menu_window, text="                                       Beta 1.0.3", width=280,command=atualizacao, text_color="teal",fg_color="gray75",hover_color="gray75", font=ctk.CTkFont(size=12, weight="bold"))
+    btn_6.pack(pady=(180,0))
 
     menu_window.mainloop()
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------

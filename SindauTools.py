@@ -14,9 +14,10 @@ ctk.set_default_color_theme("blue")
 appWidth, appHeight = 800, 600
 #-------------------------------------------------------------------
 
-#Melhorado a responsividade do formatador des/vinculador e melhorado a visibilidade em caso de ajuste da janela
-#Adicionado enumeração nos resultados para nao se perder
-#Redimencionado botão de copiar e ajuste de cores
+#Correção do bug no frame que ao fazer varias notificações ou vinculações e descer até a ultima, mesmo tentando limpar ou fazer outra bugava
+#e não aparecia nada a não ser que fosse feita a mesma quantidade ou mais.
+#A correção foi: como o "limpar" limpava apenas o que estava dentro do frame e o que bugava era o frame, o frame foi transformado em definição com argumento global
+#e tanto o limpar como o formatar por cima agora deleta o frame e cria novamente corrigindo assim o bug.
 
 #---------------------------------------------------------------------------------------------------------------------------------------------
 def menu_principal():
@@ -281,8 +282,8 @@ def abrir_formatador_notificacao():
             texto = inserir.get("1.0", tk.END).strip()
             linhas = texto.split("\n")
             resultados.clear()
-            for widget in resultados_frame.winfo_children():
-                widget.destroy()
+            resultados_frame.destroy()
+            frame()
             for idx, linha in enumerate(linhas):
                 elementos = linha.split("\t")
                 if len(elementos) == 13 and elementos[12] == "paid" or elementos[12] == "New": 
@@ -327,19 +328,21 @@ def abrir_formatador_notificacao():
                 formatador_window.clipboard_append(linha)
             except tk.TclError:
                 print("erro")
-
     def limpar_resultados():
         inserir.delete("1.0", tk.END)
-        for widget in resultados_frame.winfo_children():
-            widget.destroy()
+        resultados_frame.destroy()
+        frame()
         resultados.clear()
         
     btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", width=50, height=30, command=formatar, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="#103454",border_width=1,border_color="gray20")
     btn_formatar.grid(row=0, column=1, padx=2)
     btn_limpar = ctk.CTkButton(btn_frame, text="Limpar", width=50, height=30, command=limpar_resultados, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="darkred",border_width=1,border_color="gray20")
     btn_limpar.grid(row=0, column=2, padx=2)
-    resultados_frame = ctk.CTkScrollableFrame(formatador_window, width=600, border_width=0, border_color="gray40", fg_color="gray14",scrollbar_button_color="gray14",scrollbar_button_hover_color="gray16")
-    resultados_frame.grid(row=1, column=1, rowspan=2, padx=2, pady=(20, 20), sticky="nsew")
+    def frame():
+        global resultados_frame
+        resultados_frame = ctk.CTkScrollableFrame(formatador_window, width=600, border_width=0, border_color="gray40", fg_color="gray14",scrollbar_button_color="gray14",scrollbar_button_hover_color="gray16")
+        resultados_frame.grid(row=1, column=1, rowspan=2, padx=2, pady=(20, 20), sticky="nsew")
+    frame()
     resultados = []
 
     formatador_window.mainloop()
@@ -367,21 +370,24 @@ def abrir_formatador_vinculador():
     uuid_entry.grid(row=1, column=0, padx=30, pady=(0, 20), sticky="n")
 
     cpf_entry = ctk.CTkEntry(formatador_window, width=200,height=20)
-    cpf_entry.grid(row=2, column=0, padx=30, pady=(0, 20), sticky="n")
-    ctk.CTkLabel(formatador_window, text="CPF:").grid(row=2, column=0, padx=40, pady=(0, 20), sticky="w")
+    cpf_entry.grid(row=2, column=0, padx=30, pady=(0, 0), sticky="n")
+    ctk.CTkLabel(formatador_window, text="CPF:").grid(row=2, column=0, padx=40, pady=(0, 30), sticky="w")
 
-    btn_frame = ctk.CTkFrame(formatador_window, fg_color="gray14")
-    btn_frame.grid(row=4, column=0, padx=20, pady=(10, 20))
-    
     operacao_var = tk.StringVar(value="VINCULADO")
     operacao_menu = ctk.CTkOptionMenu(formatador_window, variable=operacao_var, values=["VINCULADO", "DESVINCULADO"],corner_radius=5)
-    operacao_menu.grid(row=3, column=0, padx=30, pady=(0, 5), sticky="n")
-
-    resultados_frame = ctk.CTkScrollableFrame(formatador_window, width=400, height=500, border_width=0, fg_color="gray14",scrollbar_button_color="gray14",scrollbar_button_hover_color="gray17")
-    resultados_frame.grid(row=1, column=1, rowspan=2, padx=0, pady=(0, 0), sticky="nsew")
-
+    operacao_menu.grid(row=4, column=0, padx=30, pady=(0, 20))
+    
+    btn_frame = ctk.CTkFrame(formatador_window, fg_color="gray14")
+    btn_frame.grid(row=5, column=0, padx=20, pady=(0, 0))
+    
     status_label = ctk.CTkLabel(formatador_window, text="", font=ctk.CTkFont(size=14), text_color="yellow")
-    status_label.grid(row=5, column=0, columnspan=2, pady=(10, 20), sticky="ew")
+    status_label.grid(row=6, column=0, columnspan=2, pady=(10, 20), sticky="ew")
+    
+    def frame():
+        global resultados_frame
+        resultados_frame = ctk.CTkScrollableFrame(formatador_window, width=400, height=1000, border_width=0, fg_color="gray14",scrollbar_button_color="gray14",scrollbar_button_hover_color="gray17")
+        resultados_frame.grid(row=1, column=1, rowspan=2, padx=0, pady=(0, 0), sticky="nsew")
+    
 
     def formatar():
         try:
@@ -390,8 +396,8 @@ def abrir_formatador_vinculador():
             cpf = cpf_entry.get().strip()
             vinculacao = operacao_var.get()
 
-            for widget in resultados_frame.winfo_children():
-                widget.destroy()
+            resultados_frame.destroy()
+            frame()
 
             for idx, uuid in enumerate(uuids):
                 json_obj = {
@@ -428,14 +434,16 @@ def abrir_formatador_vinculador():
     def limpar_resultados():
         uuid_entry.delete("1.0", tk.END)
         cpf_entry.delete(0, tk.END)
-        for widget in resultados_frame.winfo_children():
-            widget.destroy()
+        resultados_frame.destroy()
+        frame()
         status_label.configure(text="Resultados limpos.", text_color="yellow")
 
     btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", command=formatar,  font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="#103454",border_width=1,border_color="gray20")
     btn_formatar.grid(row=0, column=0, padx=5)
     btn_limpar = ctk.CTkButton(btn_frame, text="Limpar", command=limpar_resultados, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="darkred",border_width=1,border_color="gray20")
     btn_limpar.grid(row=0, column=1, padx=5)
+    
+    frame()
 
     formatador_window.mainloop()
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------    

@@ -11,12 +11,13 @@ import keyboard
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
-appWidth, appHeight = 1366, 768
+appWidth, appHeight = 800, 600
 #-------------------------------------------------------------------
 
-#Alteração no formatador de CPFs, agora abre diretamente no menu principal.
-#Esta mais simples e intuitivo e para usar basta selecionar o texto e aperta ctrl + m que ele irá formatar
-#Deu bastante trabalho
+#Melhorado a responsividade do formatador de notificações e melhorado a visibilidade em caso de ajuste da janela
+#Adicionado enumeração nos resultados para nao se perder
+#Redimencionado botão de copiar e ajuste de cores
+
 #---------------------------------------------------------------------------------------------------------------------------------------------
 def menu_principal():
     menu_window = ctk.CTk("gray75")
@@ -198,7 +199,8 @@ def menu_principal():
                 reprocessar()
             except tk.TclError:
                 status_label.configure(text="Erro ao acessar a área de transferência.", text_color="red")
-        def reprocessar(): # gambiarra para funcionar pois ele so exibia depois de dois ctrl+m e exibia sempre o ctrl+c anterior
+                
+        def reprocessar():
             try:
                 texto_copiado = menu_window.clipboard_get()
                 cpfs = extrair_cpfs(texto_copiado)
@@ -253,20 +255,26 @@ def menu_principal():
         seg_button_1 = ctk.CTkSegmentedButton(menu_window,unselected_color="teal",fg_color="teal",selected_hover_color="#3291a8",unselected_hover_color="#3291a8")
         seg_button_1.pack(pady=0)
         seg_button_1.configure(values=["Listar", "Add Virgula", "Copiar","Apagar"], command=segment_button_function)
-            
+                
     menu_window.mainloop()
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------
 def abrir_formatador_notificacao():
     formatador_window = ctk.CTk()  
     formatador_window.title("SindauTools")
     formatador_window.geometry(f"{appWidth}x{appHeight}")
+    formatador_window.grid_rowconfigure(0, weight=0)
+    formatador_window.grid_rowconfigure(1, weight=0)
+    formatador_window.grid_rowconfigure(2, weight=1) 
+    formatador_window.grid_rowconfigure(3, weight=1)
+    formatador_window.grid_columnconfigure(0, weight=1) 
+    formatador_window.grid_columnconfigure(1, weight=1) 
     
-    label = ctk.CTkLabel(formatador_window, text="Formatador Notificação", font=ctk.CTkFont(size=24, weight="bold"))
-    label.grid(row=0, column=0, columnspan=2, pady=(20, 10))
+    label = ctk.CTkLabel(formatador_window, text="Formatador Notificação", font=ctk.CTkFont(size=24, weight="bold"),width=2000,fg_color="gray35",height=30,text_color="gray85")
+    label.grid(row=0, column=0, columnspan=2, pady=(10, 10))
     inserir = ctk.CTkTextbox(formatador_window, width=600, height=580, border_width=1, border_color="gray40", fg_color="gray15")
-    inserir.grid(row=2, column=0, padx=30, pady=(0, 10), sticky="n")
-    btn_frame = ctk.CTkFrame(formatador_window)
-    btn_frame.grid(row=1, column=0, padx=20, pady=(0, 10))
+    inserir.grid(row=2, column=0, padx=2, pady=(0, 10), sticky="n")
+    btn_frame = ctk.CTkFrame(formatador_window,fg_color="gray14")
+    btn_frame.grid(row=1, column=0, padx=2, pady=(0,4))
 
     def formatar():
         try:
@@ -303,40 +311,36 @@ def abrir_formatador_notificacao():
                              
                     resultado_json = json.dumps(json_obj, indent=4, ensure_ascii=False)
                     resultados.append(resultado_json)
-                    resultado_box = ctk.CTkTextbox(resultados_frame, width=450, height=150, border_width=1, border_color="gray40", fg_color="gray20")
+                    resultado_box = ctk.CTkTextbox(resultados_frame, width=350, height=150, border_width=1, border_color="gray40", fg_color="gray20")
                     resultado_box.insert(tk.END, resultado_json)
                     resultado_box.grid(row=idx, column=0, padx=5, pady=5, sticky="nw")
-
-                    btn_copiar = ctk.CTkButton(resultados_frame, text="Copiar", width=50, height=30, 
-                                                command=lambda r=resultado_json: copiar_texto(r),
-                                                font=ctk.CTkFont(size=10), fg_color="gray25", hover_color="teal")
-                    btn_copiar.grid(row=idx, column=1, padx=5, pady=5, sticky="nw")
+                    resultado_label = ctk.CTkLabel(resultados_frame, text=f"{idx + 1}.", font=ctk.CTkFont(size=10), fg_color="teal",corner_radius=2)
+                    resultado_label.grid(row=idx, column=0, padx=5, pady=5, sticky="nw")
+                    btn_copiar = ctk.CTkButton(resultados_frame, text="Copiar", width=70, height=40, command=lambda r=resultado_json: copiar_texto(r),font=ctk.CTkFont(size=10), fg_color="gray23", hover_color="teal",border_width=2,bg_color="gray20")
+                    btn_copiar.grid(row=idx, column=0, padx=(282,0), pady=(112,0), sticky="nw")
         except Exception as e:
-            status_label.configure(text=f"Erro ao formatar para JSON: {e}", text_color="red")
+                print("erro")
 
-    def copiar_texto(linha):
-        try:
-            formatador_window.clipboard_clear()
-            formatador_window.clipboard_append(linha)
-            status_label.configure(text="Texto copiado com sucesso!", text_color="green")
-        except tk.TclError:
-            status_label.configure(text="Erro ao copiar texto", text_color="red")
+        def copiar_texto(linha):
+            try:
+                formatador_window.clipboard_clear()
+                formatador_window.clipboard_append(linha)
+            except tk.TclError:
+                print("erro")
 
     def limpar_resultados():
         inserir.delete("1.0", tk.END)
         for widget in resultados_frame.winfo_children():
             widget.destroy()
         resultados.clear()
-        status_label.configure(text="Resultados limpos.", text_color="yellow")
-    btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", width=50, height=30, command=formatar, font=ctk.CTkFont(size=10), fg_color="gray25", hover_color="darkblue")
-    btn_formatar.grid(row=0, column=1, padx=5)
-    btn_limpar = ctk.CTkButton(btn_frame, text="Limpar", width=50, height=30, command=limpar_resultados, font=ctk.CTkFont(size=10), fg_color="red", hover_color="darkred")
-    btn_limpar.grid(row=0, column=2, padx=5)
-    resultados_frame = ctk.CTkScrollableFrame(formatador_window, width=600, border_width=1, border_color="gray40", fg_color="gray15")
-    resultados_frame.grid(row=1, column=1, rowspan=2, padx=20, pady=(20, 20), sticky="nsew")
+        
+    btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", width=50, height=30, command=formatar, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="#103454",border_width=1,border_color="gray20")
+    btn_formatar.grid(row=0, column=1, padx=2)
+    btn_limpar = ctk.CTkButton(btn_frame, text="Limpar", width=50, height=30, command=limpar_resultados, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="darkred",border_width=1,border_color="gray20")
+    btn_limpar.grid(row=0, column=2, padx=2)
+    resultados_frame = ctk.CTkScrollableFrame(formatador_window, width=600, border_width=0, border_color="gray40", fg_color="gray14",scrollbar_button_color="gray14",scrollbar_button_hover_color="gray16")
+    resultados_frame.grid(row=1, column=1, rowspan=2, padx=2, pady=(20, 20), sticky="nsew")
     resultados = []
-    status_label = ctk.CTkLabel(formatador_window, text="", font=ctk.CTkFont(size=14), text_color="yellow")
-    status_label.grid(row=3, column=0, columnspan=2, pady=(10, 20), sticky="ew")
 
     formatador_window.mainloop()
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------    

@@ -34,7 +34,7 @@ def abrir_formatador_notificacao():
     inserir.grid(row=2, column=0, padx=2, pady=(0, 10), sticky="n")
 
     # Inserindo a mensagem inicial na caixa de texto
-    inserir.insert(tk.END, "Copie e cole aqui os dados para a Notificação Financeira:\n")
+    inserir.insert(tk.END, "Copie e cole aqui os dados para a notificação financeira\n")
 
     btn_frame = ctk.CTkFrame(formatador_window, fg_color="gray14")
     btn_frame.grid(row=1, column=0, padx=2, pady=(0,4))

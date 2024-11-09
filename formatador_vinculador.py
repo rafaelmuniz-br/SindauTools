@@ -17,7 +17,7 @@ appWidth, appHeight = 800, 600
 
 def abrir_formatador_vinculador():
     formatador_window = ctk.CTk()  
-    formatador_window.title("SindauTools - Formatador Vinculador")
+    formatador_window.title("SindauTools - Formatador Vinculação")
     formatador_window.geometry(f"{appWidth}x{appHeight}")
     formatador_window.grid_rowconfigure(0, weight=0)
     formatador_window.grid_rowconfigure(1, weight=0)
@@ -31,7 +31,7 @@ def abrir_formatador_vinculador():
         data_hora_atual = datetime.now(timezone)
         return data_hora_atual.strftime("%Y-%m-%dT%H:%M:%S%z")
 
-    label = ctk.CTkLabel(formatador_window, text="Formatador Vinculador", font=ctk.CTkFont(size=24, weight="bold"), width=2000, fg_color="gray35", height=30, text_color="#faad55")
+    label = ctk.CTkLabel(formatador_window, text="Formatador Vinculação", font=ctk.CTkFont(size=24, weight="bold"), width=2000, fg_color="gray35", height=30, text_color="#faad55")
     label.grid(row=0, column=0, columnspan=2, pady=(20, 50))
 
     # Primeira caixa: UUIDs

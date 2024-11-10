@@ -48,7 +48,7 @@ def menu_principal():
     def sobre():
         for widget in menu_window.winfo_children():
             widget.destroy()
-        label_2 = ctk.CTkLabel(menu_window, text= "O SindauTools é um conjunto de ferramentas criado para apoiar a equipe de suporte técnico, adaptando-se constantemente às suas demandas, com o objetivo de aumentar a produtividade, ao acelerar processos encontrados nos trabalhos realizados.", wraplength=220)
+        label_2 = ctk.CTkLabel(menu_window, text= "O SindauTools é um conjunto de ferramentas criado para apoiar a equipe de suporte técnico, adaptando-se constantemente às suas demandas, com o objetivo de aumentar a produtividade, ao acelerar processos encontrados nos trabalhos realizados.",  wraplength=220)
         label_2.pack(pady=20)
         
         # Alteração no botão "Desenvolvedores" para abrir diretamente os LinkedIn

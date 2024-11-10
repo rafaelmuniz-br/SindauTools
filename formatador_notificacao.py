@@ -1,24 +1,14 @@
 import customtkinter as ctk
 import json
-import keyboard
-import pytz
-import re
-import requests
 import tkinter as tk
-import webbrowser
-
-from datetime import datetime
-from tkinter import ttk
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
-appWidth, appHeight = 800, 600
 #-------------------------------------------------------------------
-
 def abrir_formatador_notificacao():
     formatador_window = ctk.CTk()  
     formatador_window.title("SindauTools")
-    formatador_window.geometry(f"{appWidth}x{appHeight}")
+    formatador_window.geometry(f"800x600")
     formatador_window.grid_rowconfigure(0, weight=0)
     formatador_window.grid_rowconfigure(1, weight=0)
     formatador_window.grid_rowconfigure(2, weight=1) 

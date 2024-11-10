@@ -1,28 +1,17 @@
 import customtkinter as ctk
-import json
 import keyboard
-import pytz
 import re
-import requests
 import tkinter as tk
-import webbrowser
-
-from datetime import datetime
-from tkinter import ttk
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
-appWidth, appHeight = 800, 600
 
-menu_window = ctk.CTk("gray75")
-menu_window.title("SindauTools")
-menu_window.geometry("240x425")
-menu_window.resizable(False, False)
+formatadorcpf = ctk.CTk("gray75")
+formatadorcpf.title("SindauTools")
+formatadorcpf.geometry("240x425")
+formatadorcpf.resizable(False, False)
 #-------------------------------------------------------------------
-
 def abrir_formatar_cpf():
-        for widget in menu_window.winfo_children():
-            widget.destroy()
     
         def extrair_cpfs(texto):
             padrao_cpf_formatado = r'\d{3}\.\d{3}\.\d{3}-\d{2}'
@@ -72,7 +61,7 @@ def abrir_formatar_cpf():
         def processar_cpfs():
             try:
                 keyboard.send('ctrl+c')
-                texto_copiado = menu_window.clipboard_get()
+                texto_copiado = formatadorcpf.clipboard_get()
                 cpfs = extrair_cpfs(texto_copiado)
                 displayBox.delete("1.0", tk.END)
                 displayBox.insert(tk.END, '\n'.join(cpfs))
@@ -82,7 +71,7 @@ def abrir_formatar_cpf():
                 
         def reprocessar():
             try:
-                texto_copiado = menu_window.clipboard_get()
+                texto_copiado = formatadorcpf.clipboard_get()
                 cpfs = extrair_cpfs(texto_copiado)
                 displayBox.delete("1.0", tk.END)
                 displayBox.insert(tk.END, '\n'.join(cpfs))
@@ -92,7 +81,7 @@ def abrir_formatar_cpf():
         
         def processar_virgula():
             try:
-                texto_copiado = menu_window.clipboard_get()
+                texto_copiado = formatadorcpf.clipboard_get()
                 cpfs = extrair_cpfs(texto_copiado)
                 displayBox.delete("1.0", tk.END)
                 displayBox.insert(tk.END, ',\n'.join(cpfs))
@@ -111,10 +100,10 @@ def abrir_formatar_cpf():
                 
         def copiar_texto():
             try:
-                menu_window.clipboard_clear()
+                formatadorcpf.clipboard_clear()
                 conteudo_coluna_1 = displayBox.get("1.0", tk.END).strip()
                 texto_copiado = conteudo_coluna_1
-                menu_window.clipboard_append(texto_copiado)
+                formatadorcpf.clipboard_append(texto_copiado)
                 status_label.configure(text="Texto copiado com sucesso!", text_color="#245aab")
             except tk.TclError:
                 status_label.configure(text="Erro ao copiar texto", text_color="red")
@@ -123,32 +112,17 @@ def abrir_formatar_cpf():
             displayBox.delete("1.0", tk.END)
             status_label.configure(text="Resultados limpos!", text_color="#ebeb4b")
 
-        def voltar():
-            for widget in menu_window.winfo_children():
-                widget.destroy()
-            label = ctk.CTkLabel(menu_window, text="SindauTools", font=ctk.CTkFont(size=20, weight="bold"),corner_radius=15,fg_color="darkred")
-            label.pack(pady=20)
-            btn_1 = ctk.CTkButton(menu_window, text="Ferramentas - API", command=ferramentas_api, width=200)
-            btn_1.pack(pady=10)
-            btn_2 = ctk.CTkButton(menu_window, text="Ferramentas - Geral", command=ferramentas_geral, width=200)
-            btn_2.pack(pady=10)
-            btn_5 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
-            btn_5.pack(pady=10)
-            btn_6 = ctk.CTkButton(menu_window, text="                                       Beta 1.0.3", width=280,command=atualizacao, text_color="teal",fg_color="gray75",hover_color="gray75", font=ctk.CTkFont(size=12, weight="bold"))
-            btn_6.pack(pady=(180,0))
-            keyboard.remove_hotkey('ctrl+m')    
-
-        btn_1 = ctk.CTkButton(menu_window, text="Voltar", command=voltar, width=20, fg_color="teal", hover_color="darkred",height=3)
-        btn_1.pack(pady=0)
-        status_label = ctk.CTkLabel(menu_window, text="Formatador de CPF", font=ctk.CTkFont(size=14), text_color="Teal",height=10)
+        label = ctk.CTkLabel(formatadorcpf, text="Formatador de CPFs", font=ctk.CTkFont(size=16),text_color="Teal")
+        label.pack(pady=0)
+        status_label = ctk.CTkLabel(formatadorcpf, text="", font=ctk.CTkFont(size=12), text_color="Teal",height=5)
         status_label.pack(pady=0)
-        displayBox = ctk.CTkTextbox(menu_window, width=600, height=363, border_width=1, border_color="gray40",text_color="gray75")
+        displayBox = ctk.CTkTextbox(formatadorcpf, width=600, height=363, border_width=1, border_color="gray40",text_color="gray75")
         displayBox.pack(padx=0, pady=0)
         texto_pronto = "Para utilizar selecione o texto/lista que\ndeseja formatar e pressione Ctrl + M..."
         displayBox.insert("1.0", texto_pronto)
         keyboard.add_hotkey('ctrl+m', processar_cpfs)
-        seg_button_1 = ctk.CTkSegmentedButton(menu_window,unselected_color="teal",fg_color="teal",selected_hover_color="#3291a8",unselected_hover_color="#3291a8")
+        seg_button_1 = ctk.CTkSegmentedButton(formatadorcpf,unselected_color="teal",fg_color="teal",selected_hover_color="#3291a8",unselected_hover_color="#3291a8")
         seg_button_1.pack(pady=0)
         seg_button_1.configure(values=["Listar", "Add Virgula", "Copiar","Apagar"], command=segment_button_function)
 
-        menu_window.mainloop()
+        formatadorcpf.mainloop()

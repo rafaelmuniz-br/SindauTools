@@ -1,24 +1,16 @@
 import customtkinter as ctk
 import json
-import keyboard
 import pytz
-import re
-import requests
 import tkinter as tk
-import webbrowser
-
 from datetime import datetime
-from tkinter import ttk
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
-appWidth, appHeight = 800, 600
 #-------------------------------------------------------------------
-
 def abrir_formatador_vinculador():
     formatador_window = ctk.CTk()  
     formatador_window.title("SindauTools - Formatador Vinculação")
-    formatador_window.geometry(f"{appWidth}x{appHeight}")
+    formatador_window.geometry("800x600")
     formatador_window.grid_rowconfigure(0, weight=0)
     formatador_window.grid_rowconfigure(1, weight=0)
     formatador_window.grid_rowconfigure(2, weight=1) 
@@ -34,12 +26,10 @@ def abrir_formatador_vinculador():
     label = ctk.CTkLabel(formatador_window, text="Formatador Vinculação", font=ctk.CTkFont(size=24, weight="bold"), width=2000, fg_color="gray35", height=30, text_color="#faad55")
     label.grid(row=0, column=0, columnspan=2, pady=(20, 50))
 
-    # Primeira caixa: UUIDs
     uuid_entry = ctk.CTkTextbox(formatador_window, width=400, height=300, border_width=1, border_color="gray40", fg_color="gray15")
     uuid_entry.grid(row=1, column=0, padx=30, pady=(0, 20), sticky="n")
     uuid_entry.insert(tk.END, "Copie e cole aqui os dados para vinculação/desvinculação\n")  # Mensagem inicial
 
-    # Segunda caixa: CPF
     cpf_entry = ctk.CTkEntry(formatador_window, width=200, height=20)
     cpf_entry.grid(row=2, column=0, padx=30, pady=(0, 0), sticky="n")
     cpf_entry.insert(tk.END, "Copie e cole aqui o CPF\n")  # Mensagem inicial

@@ -23,7 +23,7 @@ def abrir_formatador_vinculador():
         data_hora_atual = datetime.now(timezone)
         return data_hora_atual.strftime("%Y-%m-%dT%H:%M:%S%z")
 
-    label = ctk.CTkLabel(formatador_window, text="Formatador Vinculação", font=ctk.CTkFont(size=24, weight="bold"), width=2000, fg_color="gray35", height=30, text_color="#faad55")
+    label = ctk.CTkLabel(formatador_window, text="Formatador Vinculação", font=ctk.CTkFont(size=24, weight="bold"), width=2000, fg_color="gray35", height=30)
     label.grid(row=0, column=0, columnspan=2, pady=(20, 50))
 
     uuid_entry = ctk.CTkTextbox(formatador_window, width=400, height=300, border_width=1, border_color="gray40", fg_color="gray15")
@@ -38,7 +38,7 @@ def abrir_formatador_vinculador():
     # ctk.CTkLabel(formatador_window, text="CPF:").grid(row=2, column=0, padx=40, pady=(0, 30), sticky="w")  # Esta linha foi removida
 
     operacao_var = tk.StringVar(value="VINCULADO")
-    operacao_menu = ctk.CTkOptionMenu(formatador_window, variable=operacao_var, values=["VINCULADO", "DESVINCULADO"], corner_radius=5)
+    operacao_menu = ctk.CTkOptionMenu(formatador_window, variable=operacao_var, values=["VINCULADO", "DESVINCULADO"], corner_radius=5,  fg_color="gray23")
     operacao_menu.grid(row=4, column=0, padx=30, pady=(0, 20))
     
     btn_frame = ctk.CTkFrame(formatador_window, fg_color="gray14")
@@ -101,7 +101,7 @@ def abrir_formatador_vinculador():
         frame()
         status_label.configure(text="Resultados limpos.", text_color="yellow")
 
-    btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", command=formatar, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="#103454", border_width=1, border_color="gray20")
+    btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", command=formatar, font=ctk.CTkFont(size=12), hover_color="#103454", border_width=1, border_color="gray20")
     btn_formatar.grid(row=0, column=0, padx=5)
     btn_limpar = ctk.CTkButton(btn_frame, text="Limpar", command=limpar_resultados, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="darkred", border_width=1, border_color="gray20")
     btn_limpar.grid(row=0, column=1, padx=5)

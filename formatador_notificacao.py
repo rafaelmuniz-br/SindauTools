@@ -87,7 +87,7 @@ def abrir_formatador_notificacao():
         frame()
         resultados.clear()
         
-    btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", width=50, height=30, command=formatar, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="#103454", border_width=1, border_color="gray20")
+    btn_formatar = ctk.CTkButton(btn_frame, text="Formatar", width=50, height=30, command=formatar, font=ctk.CTkFont(size=12), hover_color="#103454", border_width=1, border_color="gray20")
     btn_formatar.grid(row=0, column=1, padx=2)
     btn_limpar = ctk.CTkButton(btn_frame, text="Limpar", width=50, height=30, command=limpar_resultados, font=ctk.CTkFont(size=12), fg_color="gray23", hover_color="darkred", border_width=1, border_color="gray20")
     btn_limpar.grid(row=0, column=2, padx=2)

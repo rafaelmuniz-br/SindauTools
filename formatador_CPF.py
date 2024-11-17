@@ -5,10 +5,9 @@ import tkinter as tk
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
-
 formatadorcpf = ctk.CTk("gray15")
 formatadorcpf.title("SindauTools")
-formatadorcpf.geometry("240x430")
+formatadorcpf.geometry("242x425")
 formatadorcpf.resizable(False, False)
 #-------------------------------------------------------------------
 def abrir_formatar_cpf():
@@ -60,6 +59,7 @@ def abrir_formatar_cpf():
 
         def processar_cpfs():
             try:
+                formatadorcpf.geometry("242x425")
                 keyboard.send('ctrl+c')
                 texto_copiado = formatadorcpf.clipboard_get()
                 cpfs = extrair_cpfs(texto_copiado)
@@ -81,22 +81,14 @@ def abrir_formatar_cpf():
         
         def processar_virgula():
             try:
+                formatadorcpf.geometry("484x425")
                 texto_copiado = formatadorcpf.clipboard_get()
                 cpfs = extrair_cpfs(texto_copiado)
                 displayBox.delete("1.0", tk.END)
-                displayBox.insert(tk.END, ',\n'.join(cpfs))
+                displayBox.insert(tk.END, ','.join(cpfs))
                 status_label.configure(text="Virgula adicionada!", text_color="#4b9636")
             except tk.TclError:
                 status_label.configure(text="Erro ao acessar a área de transferência.", text_color="red")
-        def segment_button_function(value):
-            if value == "Listar":
-                processar_cpfs()
-            elif value == "Add Virgula":
-                processar_virgula()
-            elif value == "Copiar":
-                copiar_texto()
-            elif value == "Apagar":
-                limpar_resultados()
                 
         def copiar_texto():
             try:
@@ -121,8 +113,15 @@ def abrir_formatar_cpf():
         texto_pronto = "Selecione um texto, em qualquer janela,\ncontendo CPFs e pressione Ctrl + M..."
         displayBox.insert("1.0", texto_pronto)
         keyboard.add_hotkey('ctrl+m', processar_cpfs)
-        seg_button_1 = ctk.CTkSegmentedButton(formatadorcpf,unselected_color="gray35",fg_color="gray35")
-        seg_button_1.pack(pady=0)
-        seg_button_1.configure(values=["Listar", "Add Virgula", "Copiar","Apagar"], command=segment_button_function)
+        btn_frame = ctk.CTkFrame(formatadorcpf, fg_color="gray40", width=242)
+        btn_frame.pack(pady=(0,0))
+        btn_1 = ctk.CTkButton(btn_frame, text="Listar", width=50,command=processar_cpfs, text_color="white", hover_color="#103454", border_width=1, border_color="gray20", font=ctk.CTkFont(size=12, weight="bold"))
+        btn_1.grid(row=0, column=0, padx=(0,0))
+        btn_2 = ctk.CTkButton(btn_frame, text="Texto(,)", width=50,command=processar_virgula, text_color="white", hover_color="#103454", border_width=1, border_color="gray20", font=ctk.CTkFont(size=12, weight="bold"))
+        btn_2.grid(row=0, column=1, padx=(0,0))
+        btn_3 = ctk.CTkButton(btn_frame, text="Copiar", width=50,command=copiar_texto, text_color="white", hover_color="#103454", border_width=1, border_color="gray20", font=ctk.CTkFont(size=12, weight="bold"))
+        btn_3.grid(row=0, column=3, padx=(0,0))
+        btn_4 = ctk.CTkButton(btn_frame, text="Apagar", width=50,command=limpar_resultados, text_color="white", hover_color="#103454", border_width=1, border_color="gray20", font=ctk.CTkFont(size=12, weight="bold"))
+        btn_4.grid(row=0, column=4, padx=(0,0))
 
         formatadorcpf.mainloop()

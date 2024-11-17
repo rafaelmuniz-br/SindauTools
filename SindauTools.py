@@ -4,4 +4,4 @@ def iniciar():
 
 iniciar()
 
-#Criado menu de preferencias com arquivo .json para salvar
+#Ajuste nos botoes e nova funcionalidade no  formatador de CPFs para expandir

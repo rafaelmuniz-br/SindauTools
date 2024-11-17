@@ -4,4 +4,4 @@ def iniciar():
 
 iniciar()
 
-#Ajuste nos botoes e nova funcionalidade no  formatador de CPFs para expandir
+#Adicionado contador de CPF e melhorado design do contator

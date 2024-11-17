@@ -67,10 +67,10 @@ def abrir_formatador_notificacao():
                     resultado_box = ctk.CTkTextbox(resultados_frame, width=350, height=150, border_width=1, border_color="gray40", fg_color="gray20")
                     resultado_box.insert(tk.END, resultado_json)
                     resultado_box.grid(row=idx, column=0, padx=5, pady=5, sticky="nw")
-                    resultado_label = ctk.CTkLabel(resultados_frame, text=f"{idx + 1}.", font=ctk.CTkFont(size=10), fg_color="teal", corner_radius=2)
+                    resultado_label = ctk.CTkLabel(resultados_frame, text=f"{idx + 1}.", font=ctk.CTkFont(size=10), corner_radius=2)
                     resultado_label.grid(row=idx, column=0, padx=5, pady=5, sticky="nw")
-                    btn_copiar = ctk.CTkButton(resultados_frame, text="Copiar", width=70, height=40, command=lambda r=resultado_json: copiar_texto(r), font=ctk.CTkFont(size=10), fg_color="gray23", hover_color="teal", border_width=2, bg_color="gray20")
-                    btn_copiar.grid(row=idx, column=0, padx=(282,0), pady=(112,0), sticky="nw")
+                    btn_copiar = ctk.CTkButton(resultados_frame, text="Copiar", width=60, height=30, command=lambda r=resultado_json: copiar_texto(r), font=ctk.CTkFont(size=10), fg_color="gray23", border_width=2, bg_color="gray20")
+                    btn_copiar.grid(row=idx, column=0, padx=(290,0), pady=(120,0), sticky="nw")
         except Exception as e:
                 print("erro")
 

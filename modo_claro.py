@@ -127,10 +127,10 @@ def menu_claro():
         btn_3.pack(pady=10)
         btn_frame = ctk.CTkFrame(menu_window, fg_color="gray75")
         btn_frame.pack(pady=(180,0))
-        btn_6 = ctk.CTkButton(btn_frame, text="Beta 1.0.1", width=50,command=atualizacao, text_color="teal",fg_color="gray75",hover_color="gray75", font=ctk.CTkFont(size=12, weight="bold"))
+        btn_6 = ctk.CTkButton(btn_frame, text="\nBeta 1.0.1", width=50,command=atualizacao, text_color="#103454",fg_color="gray75",hover_color="gray75", font=ctk.CTkFont(size=12, weight="bold"))
         btn_6.grid(row=0, column=1, padx=(50,0))
-        btn_7 = ctk.CTkButton(btn_frame, text="Dark", width=50,height=15,command=modo, text_color="white",hover_color="gray35", font=ctk.CTkFont(size=12, weight="bold"), corner_radius=70,fg_color="gray15")
-        btn_7.grid(row=0, column=0, padx=(0,50))
+        btn_7 = ctk.CTkButton(btn_frame, text="💡", width=50,command=modo, hover_color="gray75", fg_color="gray75", text_color="gray15")
+        btn_7.grid(row=0, column=0, padx=(0,50))    
     menu()
 
     menu_window.mainloop()

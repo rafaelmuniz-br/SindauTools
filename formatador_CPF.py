@@ -6,9 +6,9 @@ import tkinter as tk
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
-formatadorcpf = ctk.CTk("gray75")
+formatadorcpf = ctk.CTk("gray15")
 formatadorcpf.title("SindauTools")
-formatadorcpf.geometry("240x425")
+formatadorcpf.geometry("240x430")
 formatadorcpf.resizable(False, False)
 #-------------------------------------------------------------------
 def abrir_formatar_cpf():
@@ -112,16 +112,16 @@ def abrir_formatar_cpf():
             displayBox.delete("1.0", tk.END)
             status_label.configure(text="Resultados limpos!", text_color="#ebeb4b")
 
-        label = ctk.CTkLabel(formatadorcpf, text="Formatador de CPFs", font=ctk.CTkFont(size=16),text_color="Teal")
+        label = ctk.CTkLabel(formatadorcpf, text="Formatador de CPFs", font=ctk.CTkFont(size=13, weight="bold"),  width=2000, fg_color="gray35")
         label.pack(pady=0)
-        status_label = ctk.CTkLabel(formatadorcpf, text="", font=ctk.CTkFont(size=12), text_color="Teal",height=5)
+        status_label = ctk.CTkLabel(formatadorcpf, text="", font=ctk.CTkFont(size=10), height=12)
         status_label.pack(pady=0)
-        displayBox = ctk.CTkTextbox(formatadorcpf, width=600, height=363, border_width=1, border_color="gray40",text_color="gray75")
+        displayBox = ctk.CTkTextbox(formatadorcpf, width=600, height=363, border_width=1, border_color="gray40")
         displayBox.pack(padx=0, pady=0)
-        texto_pronto = "Para utilizar selecione o texto/lista que\ndeseja formatar e pressione Ctrl + M..."
+        texto_pronto = "Selecione um texto, em qualquer janela,\ncontendo CPFs e pressione Ctrl + M..."
         displayBox.insert("1.0", texto_pronto)
         keyboard.add_hotkey('ctrl+m', processar_cpfs)
-        seg_button_1 = ctk.CTkSegmentedButton(formatadorcpf,unselected_color="teal",fg_color="teal",selected_hover_color="#3291a8",unselected_hover_color="#3291a8")
+        seg_button_1 = ctk.CTkSegmentedButton(formatadorcpf,unselected_color="gray35",fg_color="gray35")
         seg_button_1.pack(pady=0)
         seg_button_1.configure(values=["Listar", "Add Virgula", "Copiar","Apagar"], command=segment_button_function)
 

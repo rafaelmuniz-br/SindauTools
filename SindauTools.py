@@ -4,7 +4,6 @@ def iniciar():
 
 iniciar()
 
-#rollback e implementação da escolha entre dark mode e light mode.
-#- Adicionado botão para troca de tema
-#- Adicionado novos arquivos para personalização da forma que desejar
-#- Ajustado ciclo de dependencias
+#formatador CPF agora no modo escuro
+#inserção icon modo escuro/claro
+#ajustes em abas escuras

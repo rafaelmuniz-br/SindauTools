@@ -28,14 +28,11 @@ def abrir_formatador_vinculador():
 
     uuid_entry = ctk.CTkTextbox(formatador_window, width=400, height=300, border_width=1, border_color="gray40", fg_color="gray15")
     uuid_entry.grid(row=1, column=0, padx=30, pady=(0, 20), sticky="n")
-    uuid_entry.insert(tk.END, "Copie e cole aqui os dados para vinculação/desvinculação\n")  # Mensagem inicial
+    uuid_entry.insert(tk.END, "Copie e cole aqui os dados para vinculação/desvinculação\n")  
 
     cpf_entry = ctk.CTkEntry(formatador_window, width=200, height=20)
     cpf_entry.grid(row=2, column=0, padx=30, pady=(0, 0), sticky="n")
-    cpf_entry.insert(tk.END, "Copie e cole aqui o CPF\n")  # Mensagem inicial
-
-    # Remover o rótulo "CPF:"
-    # ctk.CTkLabel(formatador_window, text="CPF:").grid(row=2, column=0, padx=40, pady=(0, 30), sticky="w")  # Esta linha foi removida
+    cpf_entry.insert(tk.END, "Copie e cole aqui o CPF\n") 
 
     operacao_var = tk.StringVar(value="VINCULADO")
     operacao_menu = ctk.CTkOptionMenu(formatador_window, variable=operacao_var, values=["VINCULADO", "DESVINCULADO"], corner_radius=5,  fg_color="gray23")
@@ -79,9 +76,9 @@ def abrir_formatador_vinculador():
                 resultado_box = ctk.CTkTextbox(resultados_frame, width=300, height=150, border_width=1, border_color="gray40", fg_color="gray20")
                 resultado_box.insert(tk.END, resultado_json)
                 resultado_box.grid(row=idx, column=0, padx=5, pady=5, sticky="nsew")
-                resultado_label = ctk.CTkLabel(resultados_frame, text=f"{idx + 1}.", font=ctk.CTkFont(size=10), fg_color="teal", corner_radius=2)
+                resultado_label = ctk.CTkLabel(resultados_frame, text=f"{idx + 1}.", font=ctk.CTkFont(size=10), corner_radius=2)
                 resultado_label.grid(row=idx, column=0, padx=5, pady=5, sticky="nw")
-                btn_copiar = ctk.CTkButton(resultados_frame, text="Copiar", width=60, height=30, command=lambda r=resultado_json: copiar_texto(r), font=ctk.CTkFont(size=10), fg_color="gray23", hover_color="teal", border_width=2, bg_color="gray20")
+                btn_copiar = ctk.CTkButton(resultados_frame, text="Copiar", width=60, height=30, command=lambda r=resultado_json: copiar_texto(r), font=ctk.CTkFont(size=10), fg_color="gray23", border_width=2, bg_color="gray20")
                 btn_copiar.grid(row=idx, column=0, padx=(240,0), pady=(122,0), sticky="nw")
         except Exception as e:
             status_label.configure(text=f"Erro ao formatar para JSON: {e}", text_color="red")

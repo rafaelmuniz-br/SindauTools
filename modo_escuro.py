@@ -112,9 +112,9 @@ def menu_escuro():
         btn_3.pack(pady=10)
         btn_frame = ctk.CTkFrame(menu_window, fg_color="gray14")
         btn_frame.pack(pady=(180,0))
-        btn_6 = ctk.CTkButton(btn_frame, text="Beta 1.0.1", width=50,command=atualizacao, text_color="teal",fg_color="gray14",hover_color="gray14", font=ctk.CTkFont(size=12, weight="bold"))
+        btn_6 = ctk.CTkButton(btn_frame, text="\nBeta 1.0.1", width=50,command=atualizacao, text_color="#103454",fg_color="gray14",hover_color="gray14", font=ctk.CTkFont(size=12, weight="bold"))
         btn_6.grid(row=0, column=1, padx=(50,0))
-        btn_7 = ctk.CTkButton(btn_frame, text="Light", width=50,height=15,command=modo, text_color="gray15",hover_color="gray100", font=ctk.CTkFont(size=12, weight="bold"), corner_radius=70,fg_color="gray75",text_color_disabled="yellow")
+        btn_7 = ctk.CTkButton(btn_frame, text="💡 ", width=50,command=modo, hover_color="gray14", fg_color="gray14")
         btn_7.grid(row=0, column=0, padx=(0,50))
     menu()
 

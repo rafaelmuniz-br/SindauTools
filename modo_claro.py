@@ -25,6 +25,11 @@ def menu_claro():
         from modo_escuro import menu_escuro
         menu_escuro()
         
+    def config():
+        menu_window.destroy()
+        from config import janela
+        janela.mainloop()
+    
     def sobre():
         for widget in menu_window.winfo_children():
             widget.destroy()
@@ -70,10 +75,12 @@ def menu_claro():
         btn_1.pack(pady=10)
         btn_2 = ctk.CTkButton(menu_window, text="Ferramentas - Geral", command=ferramentas_geral, width=200)
         btn_2.pack(pady=10)
-        btn_3 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
+        btn_3 = ctk.CTkButton(menu_window, text="Preferêcias", width=200,command=config)
         btn_3.pack(pady=10)
+        btn_4 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
+        btn_4.pack(pady=10)
         btn_frame = ctk.CTkFrame(menu_window, fg_color="gray75")
-        btn_frame.pack(pady=(180,0))
+        btn_frame.pack(pady=(135,0))
         btn_6 = ctk.CTkButton(btn_frame, text="Beta 1.0.1", width=50,command="atualizacao", text_color="teal",fg_color="gray75",hover_color="gray75", font=ctk.CTkFont(size=12, weight="bold"))
         btn_6.grid(row=0, column=1, padx=(50,0))
         btn_7 = ctk.CTkButton(btn_frame, text="Dark", width=50,height=15,command=modo, text_color="white",hover_color="gray35", font=ctk.CTkFont(size=12, weight="bold"), corner_radius=70,fg_color="gray15")

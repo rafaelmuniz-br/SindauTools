@@ -18,7 +18,12 @@ def menu_escuro():
         for widget in menu_window.winfo_children():
             widget.destroy()
         menu()
-        
+    
+    def config():
+        menu_window.destroy()
+        from config import janela
+        janela.mainloop()
+    
     def ferramentas_api():
         for widget in menu_window.winfo_children():
             widget.destroy()
@@ -108,10 +113,12 @@ def menu_escuro():
         btn_1.pack(pady=10)
         btn_2 = ctk.CTkButton(menu_window, text="Ferramentas - Geral", command=ferramentas_geral, width=200)
         btn_2.pack(pady=10)
-        btn_3 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
+        btn_3 = ctk.CTkButton(menu_window, text="Preferêcias", width=200,command=config)
         btn_3.pack(pady=10)
+        btn_4 = ctk.CTkButton(menu_window, text="Sobre", width=200,command=sobre)
+        btn_4.pack(pady=10)
         btn_frame = ctk.CTkFrame(menu_window, fg_color="gray14")
-        btn_frame.pack(pady=(180,0))
+        btn_frame.pack(pady=(135,0))
         btn_6 = ctk.CTkButton(btn_frame, text="\nBeta 1.0.1", width=50,command=atualizacao, text_color="#103454",fg_color="gray14",hover_color="gray14", font=ctk.CTkFont(size=12, weight="bold"))
         btn_6.grid(row=0, column=1, padx=(50,0))
         btn_7 = ctk.CTkButton(btn_frame, text="💡 ", width=50,command=modo, hover_color="gray14", fg_color="gray14")

@@ -62,8 +62,7 @@ def abrir_formatar_cpf():
     def atualizar_contador():
         texto = displayBox.get("1.0", tk.END).strip()
         linhas = texto.count('\n') if texto else 0 
-        contador_label.configure(text=f"CPFs: {linhas}")
-        
+        contador_label.configure(text=f"CPFs: {linhas+1}")
     def automatico():
         try:
             formatadorcpf.geometry("242x425")

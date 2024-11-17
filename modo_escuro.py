@@ -47,7 +47,7 @@ def menu_escuro():
             widget.destroy()
         label_2 = ctk.CTkLabel(menu_window, text= "O SindauTools é um conjunto de ferramentas criado para apoiar a equipe de suporte técnico, adaptando-se constantemente às suas demandas, com o objetivo de aumentar a produtividade, ao acelerar processos encontrados nos trabalhos realizados.",  wraplength=220)
         label_2.pack(pady=20)
-        btn_1 = ctk.CTkButton(menu_window, text="Desenvolvedores", command=abrir_linkedin_desenvolvedores, width=20, hover_color="gray60")
+        btn_1 = ctk.CTkButton(menu_window, text="Desenvolvedores", command=abrir_github_desenvolvedores, width=20, hover_color="gray60")
         btn_1.pack(pady=0)
         btn_2 = ctk.CTkButton(menu_window, text="Voltar", command=voltar, width=20)
         btn_2.pack(pady=20)
@@ -92,9 +92,9 @@ def menu_escuro():
         status_label = ctk.CTkLabel(menu_window, text="", font=ctk.CTkFont(size=14), text_color="yellow")
         status_label.pack(pady=10)
 
-    def abrir_linkedin_desenvolvedores():
-        webbrowser.open("https://www.linkedin.com/in/jefferson-levy-57551317b/")
-        webbrowser.open("https://www.linkedin.com/in/rafael-muniz-88b417245/")
+    def abrir_github_desenvolvedores():
+        webbrowser.open("https://github.com/D-Jefferson")
+        webbrowser.open("https://github.com/rafaelmuniz-br")
         
     def modo():
         menu_window.destroy()

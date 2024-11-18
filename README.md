@@ -1,7 +1,9 @@
 # SindauTools
-
-O Sindauto é o Sindicato das Autoescolas e Centros de Formação de Condutores do Estado da Bahia, criado como sindicato patronal em 18 de setembro de 1996. Hoje, dos 360 CFC´s em atividade em todo o estado, mais de noventa por cento estão filiados ao sindicato. 
-
-A SindauTools foi criada para se adaptar continuamente às demandas de suporte do Sindicato Sindauto, visando proporcionar mais facilidade e eficiência ao trabalho dessa equipe.
-
-###### Desenvolvido por: Jefferson e Rafael
+│
+├── Sindautools.py                  # Arquivo principal que inicializa a aplicação              
+│   ├── formatador_notificacao.py       # Módulo responsável por formatação e manipulação de notificações
+│   ├── formatador_vinculador.py        # Módulo responsável por formatação e manipulação de vinculações
+│   ├── formatador_CPF.py        # Módulo responsável por formatação e manipulação de CPF
+│   ├── modo_claro.py            # Para que a pessoa possa escolher o modo claro ou escuro
+│   ├── modo_escuro.py            # Para que a pessoa possa escolher o modo claro ou escuro
+│   ├── config.py

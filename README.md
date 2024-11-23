@@ -7,3 +7,4 @@
 │   ├── modo_claro.py            # Para que a pessoa possa escolher o modo claro ou escuro
 │   ├── modo_escuro.py            # Para que a pessoa possa escolher o modo claro ou escuro
 │   ├── config.py
+│   ├── macro.py

@@ -28,7 +28,58 @@ def salvar_preferencias():
 
 def carregar_preferencias():
     if not os.path.exists("preferencias.json"):
-        preferencias_padrao = {"tema": "Claro", "check": 0}
+        preferencias_padrao = {
+    "tema": "Claro", 
+    "check": 0,
+    "Texto 1": {
+        "titulo": "Resposta 1",
+        "conteudo": "Salve seu texto aqui! Utilize o bot\u00e3o salvar."
+    },
+    "Texto 2": {
+        "titulo": "Resposta 2",
+        "conteudo": "Salve seu texto aqui! Utilize o bot\u00e3o salvar."
+    },
+    "Texto 3": {
+        "titulo": "Resposta 3",
+        "conteudo": "Salve seu texto aqui! Utilize o bot\u00e3o salvar."
+    },
+    "Texto 4": {
+        "titulo": "Resposta 4",
+        "conteudo": "Salve seu texto aqui! Utilize o bot\u00e3o salvar."
+    },
+    "Texto 5": {
+        "titulo": "Resposta 5",
+        "conteudo": "Salve seu texto aqui! Utilize o bot\u00e3o salvar."
+    },
+    "Texto 6": {
+        "titulo": "Resposta 6",
+        "conteudo": "Salve seu texto aqui! Utilize o bot\u00e3o salvar."
+    },
+    "Texto 7": {
+        "titulo": "Resposta 7",
+        "conteudo": "Salve seu texto aqui! Utilize o bot\u00e3o salvar."
+    },
+    "Texto 8": {
+        "titulo": "Resposta 8",
+        "conteudo": "Salve seu texto aqui! Utilize o bot\u00e3o salvar."
+    },
+    "Texto 9": {
+        "titulo": "Reposi\u00e7\u00e3o",
+        "conteudo": "Prezado CFC, a  reposi\u00e7\u00e3o \u00e9 feita pelo pr\u00f3prio CFC atrav\u00e9s da matricula do candidato. O suporte interv\u00e9m apenas em caso de erro ou reposi\u00e7\u00f5es referente a aluno de reciclagem.\n\nLink para orienta\u00e7\u00f5es: https://www.loom.com/share/d76f3b6db0c548ce8a78c28161609f8b\n\nAparece algum erro ao tentar repor?"
+    },
+    "Texto 10": {
+        "titulo": "Inserir em Turma",
+        "conteudo": "Prezado CFC, o agendamento na turma \u00e9 feita pelo pr\u00f3prio CFC. O suporte interv\u00e9m apenas em caso de erro. Aparece algum erro ao tentar agendar?\n\nLink para orienta\u00e7\u00f5es de como agendar: https://www.loom.com/share/f728f746277f48688bcc65f22fdfa04b"
+    },
+    "Texto 11": {
+        "titulo": "Instabilidade Sindauto",
+        "conteudo": "Pedimos desculpas pelos transtorno causados, estamos passando por uma instabilidade na plataforma. Estamos cientes de como esta situa\u00e7\u00e3o pode impactar a sua experi\u00eancia e queremos assegurar que nossa equipe t\u00e9cnica est\u00e1 trabalhando intensivamente para resolver o problema o mais r\u00e1pido poss\u00edvel.\n\nA nossa prioridade \u00e9 garantir a continuidade e a qualidade dos servi\u00e7os prestados. Agradecemos a vossa compreens\u00e3o neste momento. Caso tenham alguma d\u00favida ou precisem de suporte adicional basta nos informar."
+    },
+    "Texto 12": {
+        "titulo": "Instabilidade Renova",
+        "conteudo": "Pedimos desculpas pelos transtorno causados, estamos passando por uma instabilidade na plataforma. Estamos No momento estamos enfrentando instabilidade na plataforma de aulas Renova. Pedimos desculpa pelo acontecido e informamos que os desenvolvedores j\u00e1 est\u00e3o trabalhando para corre\u00e7\u00e3o.Caso tenham alguma d\u00favida ou precisem de suporte adicional, por favor, entre em contato com o suporte Renova:  wa.me/71999868062"
+    }
+}
         with open("preferencias.json", "w") as arquivo:
             json.dump(preferencias_padrao, arquivo, indent=4)
         status_label.configure(text="Preferências padrão criadas.", text_color="red")

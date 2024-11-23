@@ -4,4 +4,5 @@ def iniciar():
 
 iniciar()
 
-#Adicionado contador de CPF e melhorado design do contator
+#Implementado  modulo de respostas rapidas.
+#Alteração do menu Claro.

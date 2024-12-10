@@ -104,37 +104,6 @@ def aplicar_preferencias(preferencias):
     else:
         aplicar_tema_escuro()
         
-def verificar_atualizacoes(url = "https://d-jefferson.github.io/Update/"):
-    try:
-        resposta = requests.head(url)
-        if resposta.status_code < 400:
-            print(f"O link {url} é válido.")
-            def abrir():
-                webbrowser.open("https://d-jefferson.github.io/Update/")
-            janela.after(2000, abrir)
-            status_label = ctk.CTkLabel(janela, text="[ Há atualizações disponiveis ]", font=ctk.CTkFont(size=14), text_color="green")
-            status_label.pack(pady=10)
-        else:
-            print(f"O link {url} é inválido. Código de status: {resposta.status_code}")
-            status_label = ctk.CTkLabel(janela, text="[ Não há atualizações disponiveis ]", font=ctk.CTkFont(size=14), text_color="Teal", corner_radius=15)
-            status_label.pack(pady=(180,0))
-            btn_2 = ctk.CTkButton(janela, text="Voltar", width=50,height=15,command=cancelar, text_color="white",hover_color="darkred", font=ctk.CTkFont(size=12, weight="bold"), corner_radius=70,fg_color="gray15")
-            btn_2.pack(pady=20)
-    except requests.exceptions.RequestException:
-        print(f"O link {url} é inválido.")
-def veri():        
-    for widget in janela.winfo_children():
-        widget.destroy()
-    style = ttk.Style()
-    style.theme_use("default")
-    progressbar = ttk.Progressbar(janela, orient="horizontal", length=200, mode="indeterminate")
-    progressbar.pack(pady=(180,10))
-    progressbar.start()
-    def parar():
-        progressbar.pack_forget()
-    janela.after(5500, verificar_atualizacoes)
-    janela.after(5500, parar)
-        
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
 janela = ctk.CTk("gray40")
@@ -153,10 +122,6 @@ tema_menu = ctk.CTkOptionMenu(janela, values=["Claro", "Escuro"], variable=tema_
 tema_menu.pack(padx=20, pady=10)
 #check = ctk.CTkCheckBox(janela, text="", variable=check_var)
 #check.pack(anchor="w", padx=20, pady=5)
-label2 = ctk.CTkLabel(janela, text="Atualizações:")
-label2.pack(anchor="w", padx=20, pady=(10, 0))
-btn_1 = ctk.CTkButton(janela, text="Verificar...",command=veri, font=ctk.CTkFont(size=12, weight="bold"))
-btn_1.pack(pady=10)
 status_label = ctk.CTkLabel(janela, text="", font=("Arial", 16))
 status_label.pack()
 btn_frame = ctk.CTkFrame(janela, fg_color="gray40", width=242)

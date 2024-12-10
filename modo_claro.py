@@ -1,9 +1,5 @@
 import customtkinter as ctk
-import tkinter as tk
 import webbrowser
-from PIL import Image, ImageTk
-import requests
-from io import BytesIO
 
 from formatador_notificacao import abrir_formatador_notificacao
 from formatador_vinculador import abrir_formatador_vinculador

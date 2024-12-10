@@ -1,7 +1,6 @@
 import customtkinter as ctk
-import requests
 import webbrowser
-from tkinter import ttk
+
 
 from formatador_notificacao import abrir_formatador_notificacao
 from formatador_vinculador import abrir_formatador_vinculador
